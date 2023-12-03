@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary"
+        android:elevation="4dp"
+        android:theme="?attr/actionBarTheme"
+        android:title="About"
+        android:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
+
+    <TextView
+        android:id="@+id/restaurantNameTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:layout_marginBottom="8dp"
+        android:layout_marginTop="?attr/actionBarSize"
+        android:text="Restaurant Name" />
+
+    <TextView
+        android:id="@+id/restaurantAddressTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="18sp"
+        android:layout_below="@id/restaurantNameTextView"
+        android:text="Address" />
+
+    <TextView
+        android:id="@+id/restaurantPhonenumberTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="18sp"
+        android:layout_below="@id/restaurantAddressTextView"
+        android:text="Phone Number" />
+
+    <TextView
+        android:id="@+id/restaurantDescriptionTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="18sp"
+        android:layout_below="@id/restaurantPhonenumberTextView"
+        android:text="Description" />
+
+    <TextView
+        android:id="@+id/restaurantTagsTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="18sp"
+        android:layout_below="@id/restaurantDescriptionTextView"
+        android:text="Tags" />
+
+    <TextView
+        android:id="@+id/restaurantRatingTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="18sp"
+        android:layout_below="@id/restaurantTagsTextView"
+        android:text="Rating" />
+
+</RelativeLayout>
