@@ -40,12 +40,13 @@ public class AddEditRestaurantActivity extends AppCompatActivity {
             String tags = tagsEditText.getText().toString();
             float rating = ratingBar.getRating();
 
-            // Perform actions with the collected information, such as saving it to a database
-
-            // For example, you can create a Restaurant object and save it to a database
             Restaurant restaurant = new Restaurant(name, address, phone, description, tags, rating);
-            // Save the restaurant details, or perform any required operations
 
+            RestaurantDatabase db = RestaurantDatabase.getDatabase(this);
+
+            new Thread(() -> {
+                db.restaurantDao().insertRestaurant(restaurant);
+            }).start();
 
             Intent intent = new Intent(AddEditRestaurantActivity.this, MainActivity.class);
             startActivity(intent);

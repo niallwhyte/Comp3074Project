@@ -64,4 +64,27 @@
         android:layout_below="@id/restaurantTagsTextView"
         android:text="Rating" />
 
+    <LinearLayout
+        android:id="@+id/buttonLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_alignParentBottom="true"
+        android:padding="16dp">
+
+        <Button
+            android:id="@+id/editButton"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="Edit" />
+
+        <Button
+            android:id="@+id/deleteButton"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="Delete" />
+    </LinearLayout>
+
 </RelativeLayout>

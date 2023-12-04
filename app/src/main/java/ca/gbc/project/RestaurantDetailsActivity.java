@@ -1,12 +1,14 @@
 package ca.gbc.project;
 
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
-import org.w3c.dom.Text;
 
 public class RestaurantDetailsActivity extends AppCompatActivity {
 
@@ -18,6 +20,9 @@ public class RestaurantDetailsActivity extends AppCompatActivity {
 
     private TextView restaurantRatingTextView;
 
+    private Button editButton;
+    private Button deleteButton;
+    
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,25 +41,43 @@ public class RestaurantDetailsActivity extends AppCompatActivity {
         restaurantTagsTextView = findViewById(R.id.restaurantTagsTextView);
         restaurantRatingTextView = findViewById(R.id.restaurantRatingTextView);
 
-
-        // Retrieve selected restaurant details from Intent
         if (getIntent().getExtras() != null && getIntent().hasExtra("selectedRestaurant")) {
             Restaurant selectedRestaurant = getIntent().getParcelableExtra("selectedRestaurant");
-            displayRestaurantDetails(selectedRestaurant);
+
+            if (selectedRestaurant != null) {
+                displayRestaurantDetails(selectedRestaurant);
+            } else {
+                handleNullRestaurantObject();
+            }
         } else {
-            // Handle when there are no restaurant details available
+            handleNoRestaurantDetailsAvailable();
         }
+
+
+        editButton = findViewById(R.id.editButton);
+        deleteButton = findViewById(R.id.deleteButton);
+
+
+
+
+
     }
+
+
 
     // Method to display restaurant details in TextViews
     private void displayRestaurantDetails(Restaurant restaurant) {
-        restaurantNameTextView.setText(restaurant.getName());
-        restaurantAddressTextView.setText(restaurant.getAddress());
-        restaurantPhonenumberTextView.setText(restaurant.getPhoneNumber());
-        restaurantDescriptionTextView.setText(restaurant.getDescription());
-        restaurantTagsTextView.setText(restaurant.getTags());
-        restaurantRatingTextView.setText(restaurant.getTags());
-        // Set other details similarly...
+        if (restaurant != null) {
+            restaurantNameTextView.setText(restaurant.getName());
+            restaurantAddressTextView.setText(restaurant.getAddress());
+            restaurantPhonenumberTextView.setText(restaurant.getPhoneNumber());
+            restaurantDescriptionTextView.setText(restaurant.getDescription());
+            restaurantTagsTextView.setText(restaurant.getTags());
+            restaurantRatingTextView.setText(String.valueOf(restaurant.getRating()));
+
+        } else {
+            handleNullRestaurantObject();
+        }
     }
 
     @Override
@@ -62,5 +85,23 @@ public class RestaurantDetailsActivity extends AppCompatActivity {
         onBackPressed(); // Go back when the back arrow in the toolbar is clicked
         return true;
     }
+
+    // Method to handle null Restaurant object
+    private void handleNullRestaurantObject() {
+        // For example, display an error message or navigate back
+        Toast.makeText(this, "Restaurant details not available", Toast.LENGTH_SHORT).show();
+        onBackPressed(); // Go back to the previous activity
+    }
+
+    // Method to handle when there are no restaurant details available in the intent
+    private void handleNoRestaurantDetailsAvailable() {
+        // For example, display an error message or navigate back
+        Toast.makeText(this, "No restaurant details found", Toast.LENGTH_SHORT).show();
+        onBackPressed(); // Go back to the previous activity
+    }
+
+
+
+
 }
 
