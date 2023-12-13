@@ -13,12 +13,10 @@ public class AboutActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.about);
 
-        // Set up toolbar with a back button
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        // Display a list of names in a TextView
         TextView namesTextView = findViewById(R.id.namesTextView);
         String[] names = {"Niall Whyte 101377899", "Haider Farooqui 101292102"};
         StringBuilder namesList = new StringBuilder();
@@ -30,7 +28,7 @@ public class AboutActivity extends AppCompatActivity {
 
     @Override
     public boolean onSupportNavigateUp() {
-        onBackPressed(); // Go back when the back arrow in the toolbar is clicked
+        onBackPressed();
         return true;
     }
 }

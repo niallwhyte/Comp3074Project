@@ -18,7 +18,6 @@ public class AddEditRestaurantActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.add_edit_restaurant_layout);
 
-        // Set up toolbar with a back button
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -56,7 +55,7 @@ public class AddEditRestaurantActivity extends AppCompatActivity {
 
     @Override
     public boolean onSupportNavigateUp() {
-        onBackPressed(); // Go back when the back arrow in the toolbar is clicked
+        onBackPressed();
         return true;
     }
 }

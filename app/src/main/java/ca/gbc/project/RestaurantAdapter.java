@@ -15,6 +15,12 @@ public class RestaurantAdapter extends RecyclerView.Adapter<RestaurantAdapter.Re
     private List<Restaurant> restaurantList;
     private OnItemClickListener listener;
 
+    public void removeRestaurant(Restaurant restaurant) {
+        if (restaurantList != null) {
+            restaurantList.remove(restaurant);
+        }
+    }
+
     public interface OnItemClickListener {
         void onItemClick(Restaurant restaurant);
     }
@@ -62,7 +68,6 @@ public class RestaurantAdapter extends RecyclerView.Adapter<RestaurantAdapter.Re
 
         public void bind(Restaurant restaurant) {
             restaurantNameTextView.setText(restaurant.getName());
-            // Bind other restaurant details to respective views if needed
         }
     }
 }

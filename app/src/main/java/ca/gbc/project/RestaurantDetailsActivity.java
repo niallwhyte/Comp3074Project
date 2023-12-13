@@ -1,5 +1,6 @@
 package ca.gbc.project;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -20,11 +21,12 @@ public class RestaurantDetailsActivity extends AppCompatActivity {
 
     private TextView restaurantRatingTextView;
 
+    private RestaurantAdapter adapter;
+
     private Button editButton;
     private Button deleteButton;
 
-    private RestaurantDao restaurantDao;
-    private Restaurant selectedRestaurant;
+
 
 
     @Override
@@ -36,9 +38,7 @@ public class RestaurantDetailsActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        restaurantDao = RestaurantDatabase.getDatabase(getApplicationContext()).restaurantDao(); // Replace YourDatabase with your actual database class
 
-        // Initialize TextViews or other views to display restaurant details
         restaurantNameTextView = findViewById(R.id.restaurantNameTextView);
         restaurantAddressTextView = findViewById(R.id.restaurantAddressTextView);
         restaurantPhonenumberTextView = findViewById(R.id.restaurantPhonenumberTextView);
@@ -62,10 +62,58 @@ public class RestaurantDetailsActivity extends AppCompatActivity {
         editButton = findViewById(R.id.editButton);
         deleteButton = findViewById(R.id.deleteButton);
 
+        deleteButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Restaurant selectedRestaurant = getIntent().getParcelableExtra("selectedRestaurant");
+
+                if (selectedRestaurant != null) {
+
+                    new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            RestaurantDatabase db = RestaurantDatabase.getDatabase(RestaurantDetailsActivity.this);
+                            db.restaurantDao().deleteRestaurant(selectedRestaurant);
+                            if (adapter != null) {
+                                adapter.removeRestaurant(selectedRestaurant);
+                                adapter.notifyDataSetChanged();
+                            }
+                        }
+                    }).start();
+
+
+                    finish();
+                } else {
+
+                    handleNullRestaurantObject();
+                }
+            }
+        });
+
+
+        editButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent changeView = new Intent(RestaurantDetailsActivity.this, AddEditRestaurantActivity.class);
+                startActivity(changeView);
+            }
+        });
+
     }
 
+    public void deleteRestaurant(long restaurantId){
+        new Thread(() -> {
+            RestaurantDatabase db = RestaurantDatabase.getDatabase(this);
+            RestaurantDao rd = db.restaurantDao();
 
-    // Method to display restaurant details in TextViews
+            runOnUiThread(() -> {
+                Toast.makeText(this, "Restaurant deleted", Toast.LENGTH_SHORT).show();
+                finish();
+            });
+        }).start();
+    }
+
     private void displayRestaurantDetails(Restaurant restaurant) {
         if (restaurant != null) {
             restaurantNameTextView.setText("Restaurant Name: " + restaurant.getName());
@@ -79,27 +127,30 @@ public class RestaurantDetailsActivity extends AppCompatActivity {
             handleNullRestaurantObject();
         }
     }
-    
 
     @Override
     public boolean onSupportNavigateUp() {
-        onBackPressed(); // Go back when the back arrow in the toolbar is clicked
+        onBackPressed();
         return true;
     }
 
-    // Method to handle null Restaurant object
+
     private void handleNullRestaurantObject() {
-        // For example, display an error message or navigate back
+
         Toast.makeText(this, "Restaurant details not available", Toast.LENGTH_SHORT).show();
-        onBackPressed(); // Go back to the previous activity
+        onBackPressed();
     }
 
-    // Method to handle when there are no restaurant details available in the intent
+
     private void handleNoRestaurantDetailsAvailable() {
-        // For example, display an error message or navigate back
+
         Toast.makeText(this, "No restaurant details found", Toast.LENGTH_SHORT).show();
-        onBackPressed(); // Go back to the previous activity
+        onBackPressed();
     }
+
+
+
+
 
 }
 

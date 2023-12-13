@@ -1,6 +1,5 @@
 package ca.gbc.project;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -10,7 +9,6 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class RestaurantListActivity extends AppCompatActivity {
@@ -40,13 +38,11 @@ public class RestaurantListActivity extends AppCompatActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        // Update UI with fetched restaurants
-                        adapter = new RestaurantAdapter(restaurants); // Assuming you have an adapter
+
+                        adapter = new RestaurantAdapter(restaurants);
                         recyclerView.setAdapter(adapter);
 
-                        // Set item click listener for the adapter
                         adapter.setOnItemClickListener(restaurant -> {
-                            // Handle item click - navigate to RestaurantDetailsActivity with details of the selected restaurant
                             if (restaurant != null) {
                                 Log.d("ItemClicked", "Restaurant Name: " + restaurant.getName());
                                 Intent intent = new Intent(RestaurantListActivity.this, RestaurantDetailsActivity.class);
@@ -64,8 +60,8 @@ public class RestaurantListActivity extends AppCompatActivity {
     }
 
     private List<Restaurant> fetchRestaurantData() {
-        RestaurantDatabase db = RestaurantDatabase.getDatabase(this); // Get an instance of your Room Database
-        List<Restaurant> restaurants = db.restaurantDao().getAllRestaurants(); // Fetch restaurants from the database using the DAO
+        RestaurantDatabase db = RestaurantDatabase.getDatabase(this);
+        List<Restaurant> restaurants = db.restaurantDao().getAllRestaurants();
 
         return restaurants;
     }
@@ -74,7 +70,7 @@ public class RestaurantListActivity extends AppCompatActivity {
 
     @Override
     public boolean onSupportNavigateUp() {
-        onBackPressed(); // Go back when the back arrow in the toolbar is clicked
+        onBackPressed();
         return true;
     }
 }
