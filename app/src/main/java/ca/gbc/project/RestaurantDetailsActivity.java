@@ -22,7 +22,10 @@ public class RestaurantDetailsActivity extends AppCompatActivity {
 
     private Button editButton;
     private Button deleteButton;
-    
+
+    private RestaurantDao restaurantDao;
+    private Restaurant selectedRestaurant;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +35,8 @@ public class RestaurantDetailsActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        restaurantDao = RestaurantDatabase.getDatabase(getApplicationContext()).restaurantDao(); // Replace YourDatabase with your actual database class
 
         // Initialize TextViews or other views to display restaurant details
         restaurantNameTextView = findViewById(R.id.restaurantNameTextView);
@@ -57,28 +62,24 @@ public class RestaurantDetailsActivity extends AppCompatActivity {
         editButton = findViewById(R.id.editButton);
         deleteButton = findViewById(R.id.deleteButton);
 
-
-
-
-
     }
-
 
 
     // Method to display restaurant details in TextViews
     private void displayRestaurantDetails(Restaurant restaurant) {
         if (restaurant != null) {
-            restaurantNameTextView.setText(restaurant.getName());
-            restaurantAddressTextView.setText(restaurant.getAddress());
-            restaurantPhonenumberTextView.setText(restaurant.getPhoneNumber());
-            restaurantDescriptionTextView.setText(restaurant.getDescription());
-            restaurantTagsTextView.setText(restaurant.getTags());
-            restaurantRatingTextView.setText(String.valueOf(restaurant.getRating()));
+            restaurantNameTextView.setText("Restaurant Name: " + restaurant.getName());
+            restaurantAddressTextView.setText("Address: " + restaurant.getAddress());
+            restaurantPhonenumberTextView.setText("Phone Number: " + restaurant.getPhoneNumber());
+            restaurantDescriptionTextView.setText("Description: " + restaurant.getDescription());
+            restaurantTagsTextView.setText("Tags: " + restaurant.getTags());
+            restaurantRatingTextView.setText("Rating: " + String.valueOf(restaurant.getRating()));
 
         } else {
             handleNullRestaurantObject();
         }
     }
+    
 
     @Override
     public boolean onSupportNavigateUp() {
@@ -99,9 +100,6 @@ public class RestaurantDetailsActivity extends AppCompatActivity {
         Toast.makeText(this, "No restaurant details found", Toast.LENGTH_SHORT).show();
         onBackPressed(); // Go back to the previous activity
     }
-
-
-
 
 }
 

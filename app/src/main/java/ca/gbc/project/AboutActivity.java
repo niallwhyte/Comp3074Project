@@ -20,7 +20,7 @@ public class AboutActivity extends AppCompatActivity {
 
         // Display a list of names in a TextView
         TextView namesTextView = findViewById(R.id.namesTextView);
-        String[] names = {"Niall Whyte 10138899", "Haider Farooqui 101292102"};
+        String[] names = {"Niall Whyte 101377899", "Haider Farooqui 101292102"};
         StringBuilder namesList = new StringBuilder();
         for (String name : names) {
             namesList.append("- ").append(name).append("\n");

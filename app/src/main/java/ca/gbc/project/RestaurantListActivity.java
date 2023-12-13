@@ -31,17 +31,6 @@ public class RestaurantListActivity extends AppCompatActivity {
         recyclerView = findViewById(R.id.recyclerView);
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-//        restaurantList = fetchRestaurantData(); // Fetch restaurant data from your database or source
-//        adapter = new RestaurantAdapter(restaurantList);
-//        recyclerView.setAdapter(adapter);
-//
-//        // Set item click listener for the adapter
-//        adapter.setOnItemClickListener(restaurant -> {
-//            // Handle item click - navigate to RestaurantDetailsActivity with details of the selected restaurant
-//            Intent intent = new Intent(RestaurantListActivity.this, RestaurantDetailsActivity.class);
-//            intent.putExtra("selectedRestaurant", restaurant);
-//            startActivity(intent);
-//        });
 
         new Thread(new Runnable() {
             @Override
